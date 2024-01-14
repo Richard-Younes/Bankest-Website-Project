@@ -69,7 +69,7 @@ console.log(message.style.color);
 console.log(message.style.backgroundColor);
 console.log(getComputedStyle(message).color);
 
-message.style.height = Number.parseFloat(getComputedStyle(message).height, 10) + 30 + 'px';
+message.style.height = Number.parseFloat(getComputedStyle(message).height, 10) + 20 + 'px';
 
 // The root where the CSS variables are is equivilant to the document element in javascript
 
@@ -113,3 +113,32 @@ message.style.height = Number.parseFloat(getComputedStyle(message).height, 10) +
 
 // It overrides all classes and can't use more than one class
 // logo.className = 'jonas'
+
+/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+// Implementing smooth scrolling
+const btnScrollTo = document.querySelector('.btn--scroll-to');
+
+const section1 = document.querySelector('#section--1');
+
+btnScrollTo.addEventListener('click', function (e) {
+	// This is used to get the location of section 1
+	const s1coords = section1.getBoundingClientRect();
+
+	// Scrolling
+	// window.scrollTo(s1coords.left + window.scrollX, s1coords.top + window.scrollY);
+
+	// For smooth Scrolling
+
+	// Old way
+	// window.scrollTo({
+	// 	left: s1coords.left + window.scrollX,
+	// 	top: s1coords.top + window.scrollY,
+	// 	behavior: 'smooth',
+	// });
+
+	// New way
+	section1.scrollIntoView({
+		behavior: 'smooth',
+	});
+});
