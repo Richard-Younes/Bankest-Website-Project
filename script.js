@@ -2,12 +2,14 @@
 
 'use strict';
 
-///////////////////////////////////////
-// ************************ Modal window ************************//
+const btnScrollTo = document.querySelector('.btn--scroll-to');
+const section1 = document.querySelector('#section--1');
 const modal = document.querySelector('.modal');
 const overlay = document.querySelector('.overlay');
 const btnCloseModal = document.querySelector('.btn--close-modal');
 const btnsOpenModal = document.querySelectorAll('.btn--show-modal');
+///////////////////////////////////////
+// ************************ Modal window ************************//
 
 const openModal = function (e) {
 	e.preventDefault();
@@ -28,6 +30,58 @@ overlay.addEventListener('click', closeModal);
 document.addEventListener('keydown', function (e) {
 	if (e.key === 'Escape' && !modal.classList.contains('hidden')) {
 		closeModal();
+	}
+});
+
+// Implementing smooth scrolling
+
+btnScrollTo.addEventListener('click', function (e) {
+	// This is used to get the location of section 1
+	const s1coords = section1.getBoundingClientRect();
+
+	// Scrolling
+	// window.scrollTo(s1coords.left + window.scrollX, s1coords.top + window.scrollY);
+
+	// For smooth Scrolling
+
+	// Old way
+	// window.scrollTo({
+	// 	left: s1coords.left + window.scrollX,
+	// 	top: s1coords.top + window.scrollY,
+	// 	behavior: 'smooth',
+	// });
+
+	// New way
+	section1.scrollIntoView({
+		behavior: 'smooth',
+	});
+});
+
+//////////////////////////////////////////////////
+// Page navigation
+// document.querySelectorAll('.nav__link').forEach(function (el) {
+// 	el.addEventListener('click', function (e) {
+// 		e.preventDefault();
+// 		const id = this.getAttribute('href');
+// 		document.querySelector(id).scrollIntoView({
+// 			behavior: 'smooth',
+// 		});
+// 	});
+// });
+
+// ************************ Event Delegation ************************//
+// 1. Add event listener to common parent element
+// 2. Determine what element originated the event
+
+document.querySelector('.nav__links').addEventListener('click', function (e) {
+	e.preventDefault();
+
+	// Matching strategy
+	if (e.target.classList.contains('nav__link')) {
+		const id = e.target.getAttribute('href');
+		document.querySelector(id).scrollIntoView({
+			behavior: 'smooth',
+		});
 	}
 });
 
@@ -65,9 +119,9 @@ message.style.width = '104.1%';
 
 // We can get the style from styles set in the javascript file and not CSS
 // To get the style from CSS we use the getComputedStyle function as shown below
-console.log(message.style.color);
-console.log(message.style.backgroundColor);
-console.log(getComputedStyle(message).color);
+// console.log(message.style.color);
+// console.log(message.style.backgroundColor);
+// console.log(getComputedStyle(message).color);
 
 message.style.height = Number.parseFloat(getComputedStyle(message).height, 10) + 20 + 'px';
 
@@ -79,7 +133,7 @@ message.style.height = Number.parseFloat(getComputedStyle(message).height, 10) +
 
 // const logo = document.querySelector('.nav__logo');
 
-// console.log(logo.alt);
+//  (logo.alt);
 // console.log(logo.className);
 
 // logo.alt = 'Beautiful minimalist logo';
@@ -116,29 +170,21 @@ message.style.height = Number.parseFloat(getComputedStyle(message).height, 10) +
 
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-// Implementing smooth scrolling
-const btnScrollTo = document.querySelector('.btn--scroll-to');
+// const randomInt = (min, max) => Math.floor(Math.random() * (max - min + 1) + min);
 
-const section1 = document.querySelector('#section--1');
+// const randomColor = () => `rgb(${randomInt(0, 255)}, ${randomInt(0, 255)}, ${randomInt(0, 255)})`;
 
-btnScrollTo.addEventListener('click', function (e) {
-	// This is used to get the location of section 1
-	const s1coords = section1.getBoundingClientRect();
+// document.querySelector('.nav__link').addEventListener('click', function (e) {
+// 	this.style.backgroundColor = randomColor();
 
-	// Scrolling
-	// window.scrollTo(s1coords.left + window.scrollX, s1coords.top + window.scrollY);
+// 	// Stop propagtion
+// 	// e.stopPropagation();
+// });
 
-	// For smooth Scrolling
+// document.querySelector('.nav__links').addEventListener('click', function (e) {
+// 	this.style.backgroundColor = randomColor();
+// });
 
-	// Old way
-	// window.scrollTo({
-	// 	left: s1coords.left + window.scrollX,
-	// 	top: s1coords.top + window.scrollY,
-	// 	behavior: 'smooth',
-	// });
-
-	// New way
-	section1.scrollIntoView({
-		behavior: 'smooth',
-	});
-});
+// document.querySelector('.nav').addEventListener('click', function (e) {
+// 	this.style.backgroundColor = randomColor();
+// });
