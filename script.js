@@ -85,6 +85,27 @@ document.querySelector('.nav__links').addEventListener('click', function (e) {
 	}
 });
 
+// ************************ Creating a Tabbed component ************************ //
+const tabs = document.querySelectorAll('.operations__tab');
+const tabsContainer = document.querySelector('.operations__tab-container');
+const tabsContent = document.querySelectorAll('.operations__content');
+
+tabsContainer.addEventListener('click', function (e) {
+	const clicked = e.target.closest('.operations__tab');
+
+	// guard clause
+	// returns early when there is no click (Or in this case the parent element is clicked and not the buttons so it returns null, !null is true which makes the if statement correct and returns)
+	if (!clicked) return;
+
+	// Active tab
+	tabs.forEach(t => t.classList.remove('operations__tab--active'));
+	tabsContent.forEach(c => c.classList.remove('operations__content--active'));
+
+	// Activate content area
+	clicked.classList.add('operations__tab--active');
+	document.querySelector(`.operations__content--${clicked.dataset.tab}`).classList.add('operations__content--active');
+});
+
 // ************************ Selecting elements ************************//
 
 const header = document.querySelector('.header');
@@ -187,4 +208,38 @@ message.style.height = Number.parseFloat(getComputedStyle(message).height, 10) +
 
 // document.querySelector('.nav').addEventListener('click', function (e) {
 // 	this.style.backgroundColor = randomColor();
+// });
+
+// const h1 = document.querySelector('h1');
+
+// // console.log(h1.querySelectorAll('.highlight'));
+// // console.log(h1.childNodes); // All children even comments
+// // console.log(h1.children); //Direcct children
+// // h1.firstElementChild.style.color = 'white';
+// // h1.lastElementChild.style.color = 'orangered';
+
+// // Going upwards: parents
+// console.log(h1.parentNode);
+// console.log(h1.parentElement);
+
+// // Closest receive a query string and finds the closest parent element that matches the string
+// h1.closest('.header').style.background = 'var(--gradient-secondary)';
+
+// // Since the element itself is an h1 it will return itself
+// console.log(h1.closest('h1'));
+
+// // Going sideways: siblings
+// console.log(h1.previousElementSibling);
+// console.log(h1.nextElementSibling);
+// // For nodes
+// console.log(h1.previousSibling);
+// console.log(h1.nextSibling);
+// // To find all siblings the trick is moving to the parent element and then get all its children
+// console.log(h1.parentElement.children);
+// // An HTMLCollection is not an array but it is iterable
+
+// [...h1.parentElement.children].forEach(function (el) {
+// 	if (el !== h1) {
+// 		el.style.transform = 'scale(0.5)';
+// 	}
 // });
