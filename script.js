@@ -129,9 +129,58 @@ nav.addEventListener('mouseover', handleHover.bind(0.5));
 
 nav.addEventListener('mouseout', handleHover.bind(1));
 
-// ************************ Selecting elements ************************//
+// *************** Sticky Navigation ***************//
+const initialCoords = section1.getBoundingClientRect();
+
+// window.addEventListener('scroll', function () {
+// 	if (window.scrollY > initialCoords.top) {
+// 		nav.classList.add('sticky');
+// 	} else {
+// 		nav.classList.remove('sticky');
+// 	}
+// });
+
+// const obsCallback = function (entries, observer) {
+// 	entries.forEach(entry => console.log(entry));
+// };
+
+// const obsOptions = {
+// 	// Null to check the intersection between section1 and the hole interface or window
+// 	root: null,
+
+// 	// Percentage of intesection at which the observer callback will be called
+// 	threshold: [0, 0.2],
+
+// 	// In this case when the section1 intersect the viewport at 10% the callBack function will get called
+// };
+
+// const observer = new IntersectionObserver(obsCallback, obsOptions);
+
+// observer.observe(section1);
 
 const header = document.querySelector('.header');
+const navHeight = nav.getBoundingClientRect().height;
+const stickyNav = function (entries) {
+	const [entry] = entries;
+	console.log(entry);
+	if (!entry.isIntersecting) {
+		nav.classList.add('sticky');
+	} else {
+		nav.classList.remove('sticky');
+	}
+};
+const headerObserver = new IntersectionObserver(stickyNav, {
+	root: null,
+	threshold: 0,
+
+	// A box of 90px that will be applied before the threshhold is applied. It is a visual margin
+	// 90 is the height of the navbar
+	rootMargin: `-${navHeight}px`,
+});
+headerObserver.observe(header);
+// ************************ Selecting elements ************************//
+
+// const header = document.querySelector('.header');
 
 // ************************ Create Elements ************************//
 
