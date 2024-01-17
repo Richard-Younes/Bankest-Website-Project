@@ -436,3 +436,29 @@ message.style.height = Number.parseFloat(getComputedStyle(message).height, 10) +
 // 		el.style.transform = 'scale(0.5)';
 // 	}
 // });
+
+// ************** Life cycle ******************** //
+
+// DOMContentLoaded
+
+// It will wait for html and javascript to be loaded (Not images and other resources)
+// It can be used to apply javascript when the html is loaded
+// when script tag at the end of html no need for Domcontentloaded
+
+document.addEventListener('DOMContentLoaded', function (e) {
+	console.log('HTML parsed and DOM tree built!', e);
+});
+
+// Load event
+// when all loading finishes even images and css as well as external files
+window.addEventListener('load', function (e) {
+	console.log('Page fully loaded', e);
+});
+
+// Beforeunload event
+// It is used to warn the user before leaving the page
+// window.addEventListener('beforeunload', function (e) {
+// 	e.preventDefault();
+// 	console.log(e);
+// 	e.returnValue = '';
+// });
